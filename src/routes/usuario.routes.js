@@ -5,6 +5,9 @@ const usuarioController = require('../controllers/usuario.controller');
 // Todos los usuarios
 router.get('/', usuarioController.findAll);
 
+// Verificar si el usuario existe
+router.get('/verificar-existencia', usuarioController.existeUsuario);
+
 // Crear un nuevo usuario
 router.post('/', usuarioController.create);
 

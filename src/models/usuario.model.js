@@ -14,6 +14,18 @@ var Usuario = function(usuario){
     this.password   = usuario.password;
 };
 
+Usuario.existeUsuario  = function(email, result){
+    dbConn.query("SELECT * FROM usuarios WHERE email = ?", email, function (err, res){
+        if(err) {
+            console.log("error: ", err);
+            result(err, null);
+        }
+        else {
+            result(null, res);
+        }
+    });
+};
+
 Usuario.create = function (newEmp, result) {    
     dbConn.query("INSERT INTO usuarios set ?", newEmp, function (err, res) {
         if(err) {
