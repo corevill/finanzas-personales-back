@@ -6,7 +6,7 @@ Api Rest de la aplicación Finanzas Personales
 ### `MySQL`
 En el fichero `config/db.config.js` se encuentra la configuración a la base de datos MySQL configurada en esta API Rest.
 
-En el directorio del proyecto puedes ejecutar:
+En el directorio del proyecto puedes ejecutar:  
 
 ### `npm install`
 
