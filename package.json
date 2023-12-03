@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "node build",
-    "build": "node build",
+    "postinstall": "npm build",
+    "build": "npm build",
     "start": "node server.js"
   },
   "keywords": [
