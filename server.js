@@ -5,6 +5,16 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 5000;
 
+const cors = require('cors');
+
+// Configuración de CORS
+app.use(cors({
+    origin: 'https://finanzaspersonales.up.railway.app/', // URL de la aplicación Angular
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'] // Encabezados permitidos
+}));
+
+
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
