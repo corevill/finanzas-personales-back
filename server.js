@@ -8,14 +8,6 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-
-const router = require('express').Router();
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
-
-router.use('/api-docs', swaggerUi.serve);
-router.get('/api-docs', swaggerUi.setup(swaggerDocument));
-
 app.get('/', (req, res) => {
   res.send("¡Bienvenido a la API de Finanzas Personales!");
 });
