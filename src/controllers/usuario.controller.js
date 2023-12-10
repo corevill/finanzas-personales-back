@@ -12,11 +12,21 @@ exports.findAll = function(req, res) {
   });
 };
 
+exports.existeUsuario = function(req, res){
+    const new_email = req.query.email;
+
+    Usuario.existeUsuario(new_email, function(err, usuario){
+        if(err){
+            res.send(err);
+        } else {
+            res.json(usuario);
+        }
+    });
+};
 
 exports.create = function(req, res) {
     const new_usuario = new Usuario(req.body);
 
-    //handles null error 
    if(req.body.constructor === Object && Object.keys(req.body).length === 0){
         res.status(400).send({ error:true, message: 'Por favor añada todos los campos requeridos' });
     }else{
