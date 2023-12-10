@@ -1,5 +1,5 @@
 'user strict';
-var dbConn = require('../../config/db.config');
+const getConnection = require('./../../config/db.config');
 
 var CategoriaGasto = function(categoriaGasto){
 
@@ -12,7 +12,9 @@ var CategoriaGasto = function(categoriaGasto){
 };
 
 CategoriaGasto.create = function (newEmp, result) {    
+     var dbConn = getConnection();
     dbConn.query("INSERT INTO gasto_categorias set ?", newEmp, function (err, res) {
+        dbConn.end();
         if(err) {
             console.log("error: ", err);
             result(err, null);
@@ -24,7 +26,9 @@ CategoriaGasto.create = function (newEmp, result) {
     });           
 };
 CategoriaGasto.findById = function (id, result) {
+     var dbConn = getConnection();
     dbConn.query("Select * from gasto_categorias where id = ? ", id, function (err, res) {             
+        dbConn.end();
         if(err) {
             console.log("error: ", err);
             result(err, null);
@@ -35,7 +39,9 @@ CategoriaGasto.findById = function (id, result) {
     });   
 };
 CategoriaGasto.findAll = function (result) {
+     var dbConn = getConnection();
     dbConn.query("Select * from gasto_categorias", function (err, res) {
+    dbConn.end();
         if(err) {
             console.log("error: ", err);
             result(null, err);
@@ -47,7 +53,9 @@ CategoriaGasto.findAll = function (result) {
     });   
 };
 CategoriaGasto.update = function(id, categoriaGasto, result){
-  dbConn.query("UPDATE gasto_categorias SET nombre=?,usuario_id=? WHERE id = ?", [categoriaGasto.nombre,categoriaGasto.usuario_id, id], function (err, res) {
+   var dbConn = getConnection();
+    dbConn.query("UPDATE gasto_categorias SET nombre=?,usuario_id=? WHERE id = ?", [categoriaGasto.nombre,categoriaGasto.usuario_id, id], function (err, res) {
+    dbConn.end();
         if(err) {
             console.log("error: ", err);
             result(null, err);
@@ -57,7 +65,9 @@ CategoriaGasto.update = function(id, categoriaGasto, result){
     }); 
 };
 CategoriaGasto.delete = function(id, result){
-     dbConn.query("DELETE FROM gasto_categorias WHERE id = ?", [id], function (err, res) {
+     var dbConn = getConnection(); 
+    dbConn.query("DELETE FROM gasto_categorias WHERE id = ?", [id], function (err, res) {
+    dbConn.end();
         if(err) {
             console.log("error: ", err);
             result(null, err);
@@ -69,7 +79,9 @@ CategoriaGasto.delete = function(id, result){
 };
 
 CategoriaGasto.findByUsuarioId = function (req, result) {
+     var dbConn = getConnection();
     dbConn.query("Select * from gasto_categorias where usuario_id = ? or usuario_id is null", req.usuario_id, function (err, res) {
+    dbConn.end();
         if(err) {
             console.log("error: ", err);
             result(null, err);

@@ -1,5 +1,5 @@
 'user strict';
-var dbConn = require('../../config/db.config');
+const getConnection = require('./../../config/db.config');
 
 var Gasto = function(gasto){
 
@@ -16,7 +16,9 @@ var Gasto = function(gasto){
 };
 
 Gasto.create = function (newEmp, result) {    
+     var dbConn = getConnection();
     dbConn.query("INSERT INTO gastos set ?", newEmp, function (err, res) {
+        dbConn.end();
         if(err) {
             console.log("error: ", err);
             result(err, null);
@@ -28,7 +30,9 @@ Gasto.create = function (newEmp, result) {
     });           
 };
 Gasto.findById = function (id, result) {
+     var dbConn = getConnection();
     dbConn.query("Select * from gastos where id = ? ", id, function (err, res) {             
+        dbConn.end();
         if(err) {
             console.log("error: ", err);
             result(err, null);
@@ -39,7 +43,9 @@ Gasto.findById = function (id, result) {
     });   
 };
 Gasto.findAll = function (result) {
+     var dbConn = getConnection();
     dbConn.query("Select * from gastos", function (err, res) {
+    dbConn.end();
         if(err) {
             console.log("error: ", err);
             result(null, err);
@@ -51,10 +57,12 @@ Gasto.findAll = function (result) {
     });   
 };
 Gasto.update = function(id, gasto, result){
-  dbConn.query(
-    "UPDATE gastos SET descripcion=?,cantidad=?,fecha_gasto=?,categoria_id=?,tipo_gasto=?,usuario_id=? WHERE id = ?", 
+   var dbConn = getConnection();
+    dbConn.query(
+        "UPDATE gastos SET descripcion=?,cantidad=?,fecha_gasto=?,categoria_id=?,tipo_gasto=?,usuario_id=? WHERE id = ?", 
         [gasto.descripcion,gasto.cantidad,gasto.fecha_gasto,gasto.categoria_id,gasto.tipo_gasto,gasto.usuario_id, id], 
     function (err, res) {
+        dbConn.end();
         if(err) {
             console.log("error: ", err);
             result(null, err);
@@ -64,7 +72,9 @@ Gasto.update = function(id, gasto, result){
     }); 
 };
 Gasto.delete = function(id, result){
-     dbConn.query("DELETE FROM gastos WHERE id = ?", [id], function (err, res) {
+     var dbConn = getConnection(); 
+    dbConn.query("DELETE FROM gastos WHERE id = ?", [id], function (err, res) {
+    dbConn.end();
         if(err) {
             console.log("error: ", err);
             result(null, err);
@@ -76,7 +86,9 @@ Gasto.delete = function(id, result){
 };
 
 Gasto.findByUsuarioId = function (req, result) {    
+     var dbConn = getConnection();
     dbConn.query("Select * from gastos where usuario_id = ? ", req.usuario_id, function (err, res) {
+    dbConn.end();
         if(err) {
             console.log("error: ", err);
             result(null, err);
